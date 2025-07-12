@@ -1,0 +1,31 @@
+const express = require('express');
+const router = express.Router();
+const { body, query } = require('express-validator');
+const rideControlller = require('../controllers/ride.controller');
+const authMiddleware = require('../middlewares/auth.middlewares')
+
+
+router.post('/create',
+    authMiddleware.authUser,
+    body('pickup').isString().isLength({ min: 3 }).withMessage('Invalid Pickup address'),
+    body('destination').isString().isLength({ min: 3 }).withMessage('Invalid destination address'),
+    body('vehicleType').isString().isIn(['auto', 'car', 'moto']).withMessage('Invalid Vehicle Type'),
+    rideControlller.createRide
+
+)
+
+router.get('/get-fare',
+    authMiddleware.authUser,
+    query('pickup').isString().isLength({ min: 3 }).withMessage('Invalid Pickup Address'),
+    query('destination').isString().isLength({ min: 3 }).withMessage('Invalid destination Address'),
+    rideControlller.getFare
+)
+
+router.post('/confirm',
+    authMiddleware.authCaptain,
+    body('rideId').isMongoId().withMessage('Invalid ride id'),
+    rideControlller.confirmRide
+)
+
+
+module.exports = router;
