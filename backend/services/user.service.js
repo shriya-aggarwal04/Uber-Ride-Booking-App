@@ -5,7 +5,7 @@ module.exports.createUser = async({
     firstname, lastname, email, password
 }) => {
     if(!firstname || !email || !password ){
-        throw new Error('All Feilds are requires');
+        throw new Error('All Feilds are required');
     }
     const user = userModel.create({
         fullname:{
