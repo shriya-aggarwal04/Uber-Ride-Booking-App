@@ -98,7 +98,7 @@ Minimum length of 6 characters.
 }
 
 **401 Unauthorized**
-Returned when authentication fails due to invalid email or password.
+`Returned when authentication fails due to invalid email or password.`
 {
   "message": "Invalid email or password"
 }
