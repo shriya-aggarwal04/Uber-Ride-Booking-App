@@ -36,13 +36,13 @@ Registers a new user. The endpoint validates the incoming request data and retur
 ```
 
 ### Example Response
--`user` (object):
-    -`fullname` (object):
-        -`firstname` (string):Minimum length of 3 characters.
-        -`lastname` (string):Minimum length of 3 characters.
-    -`email` (string):Must be a valid email address.
-    -`password` (string): Minimum length of 6 characters.
--`token` (string): JWT Token
+- **user** (object):
+  - **fullname** (object):
+    \- **firstname** (string): Minimum length of 3 characters.  
+    \- **lastname** (string): Minimum length of 3 characters.  
+- **email** (string): Must be a valid email address.  
+- **password** (string): Minimum length of 6 characters.  
+- **jwt token** (string): token
 
 ---
 
@@ -125,13 +125,14 @@ Retrieves the profile of the authenticated user. This endpoint is protected and 
 ### Responses
 - **200 OK**  
   Returns the authenticated user's profile.
-  -`user` (object):
-    -`fullname` (object):
-        -`firstname` (string):Minimum length of 3 characters.
-        -`lastname` (string):Minimum length of 3 characters.
-    -`email` (string):Must be a valid email address.
-    -`password` (string): Minimum length of 6 characters.
-    
+  - **user** (object):
+  - **fullname** (object):
+    \- **firstname** (string): Minimum length of 3 characters.  
+    \- **lastname** (string): Minimum length of 3 characters.  
+- **email** (string): Must be a valid email address.  
+- **password** (string): Minimum length of 6 characters.  
+
+
 - **401 Unauthorized**  
   If the token is missing, invalid, or blacklisted.
   ```json
