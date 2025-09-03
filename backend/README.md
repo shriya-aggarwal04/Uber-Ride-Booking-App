@@ -43,31 +43,45 @@ Registers a new user. The endpoint validates the incoming request data and retur
     -`password` (string): Minimum length of 6 characters.
 -`token` (string): JWT Token
 
-/users/login Endpoint
-HTTP Method
-POST
+---
 
-Endpoint
-/users/login
+## `/users/login` Endpoint
 
-Description
+---
+
+
+ ### HTTP Method
+`POST`
+
+**Endpoint**
+`/users/login`
+
+## **Description**
+
+
 Authenticates an existing user. On successful authentication, the endpoint returns a JWT token and the user details.
 
-Request Body (JSON)
-email (string, required):
+---
+
+## Request Body (JSON)
+-**email** (string, required):
 Must be a valid email address.
-password (string, required):
+
+-**password** (string, required):
 Minimum length of 6 characters.
 
-Example Request:
+## Example Request:
 {
   "email": "john.doe@example.com",
   "password": "secret123"
 }
 
-Responses
-200 OK
-Successful login. The response returns a JWT token and the user object.
+---
+
+## Responses
+**200 OK**
+-`Successful login. The response returns a JWT token and the user object.`
+
 {
   "token": "jwt_token",
   "user": {
@@ -75,15 +89,15 @@ Successful login. The response returns a JWT token and the user object.
   }
 }
 
-400 Bad Request
-Returned when the request data fails validation (e.g., invalid email format or password too short).
+**400 Bad Request**
+`Returned when the request data fails validation (e.g., invalid email format or password too short).`
 {
   "errors": [
     // Array of error objects detailing the validation issues
   ]
 }
 
-401 Unauthorized
+**401 Unauthorized**
 Returned when authentication fails due to invalid email or password.
 {
   "message": "Invalid email or password"
