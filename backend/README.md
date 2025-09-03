@@ -1,38 +1,39 @@
 # Backend API Documentation
 
-## `/users/register` Endpoint .
+## `/users/register` Endpoint
 
 ---
 
-###  HTTP Method
+### HTTP Method  
 `POST`
 
-**EndPoint** `/users/register`
+### Endpoint  
+`/users/register`
 
----
-
-## **Description**
-
+### Description  
 Registers a new user. The endpoint validates the incoming request data and returns a JWT token along with the created user information upon successful registration.
 
----
-
-
-
 ### Request Body (JSON)
-
 - **fullname.firstname** (string, required):  
   Minimum length of 3 characters.
-
 - **fullname.lastname** (string, optional):  
   Minimum length of 3 characters if provided.
-
 - **email** (string, required):  
   Must be a valid email address.
-
 - **password** (string, required):  
   Minimum length of 6 characters.
 
+### Example Request:
+```json
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com",
+  "password": "secret123"
+}
+```
 
 ### Example Response
 -`user` (object):
@@ -45,66 +46,149 @@ Registers a new user. The endpoint validates the incoming request data and retur
 
 ---
 
+
+
 ## `/users/login` Endpoint
 
 ---
 
-
- ### HTTP Method
+### HTTP Method  
 `POST`
 
-**Endpoint**
+### Endpoint  
 `/users/login`
 
-## **Description**
+### Description  
+Authenticates an existing user. On successful authentication, returns a JWT token and the user details.
 
+### Request Body (JSON)
+- **email** (string, required):  
+  Must be a valid email address.
+- **password** (string, required):  
+  Minimum length of 6 characters.
 
-Authenticates an existing user. On successful authentication, the endpoint returns a JWT token and the user details.
-
----
-
-## Request Body (JSON)
--**email** (string, required):
-Must be a valid email address.
-
--**password** (string, required):
-Minimum length of 6 characters.
-
-## Example Request:
+### Example Request:
+```json
 {
   "email": "john.doe@example.com",
   "password": "secret123"
 }
+```
+
+### Responses
+- **200 OK**  
+  Successful login returns a JWT token and the user object.
+  ```json
+  {
+    "token": "jwt_token",
+    "user": {
+      // user details (excluding sensitive data like password)
+    }
+  }
+  ```
+- **400 Bad Request**  
+  Validation errors.
+  ```json
+  {
+    "errors": [
+      // Validation error details
+    ]
+  }
+  ```
+- **401 Unauthorized**  
+  Invalid email or password.
+  ```json
+  {
+    "message": "Invalid email or password"
+  }
+  ```
 
 ---
 
-## Responses
-**200 OK**
--`Successful login. The response returns a JWT token and the user object.`
+## `/users/profile` Endpoint
 
-{
-  "token": "jwt_token",
-  "user": {
-    // user details (excluding sensitive data like password)
+---
+
+### HTTP Method  
+`GET`
+
+### Endpoint  
+`/users/profile`
+
+### Description  
+Retrieves the profile of the authenticated user. This endpoint is protected and requires a valid JWT token provided via cookies or the `Authorization` header.
+
+### Request Headers
+- **Authorization:**  
+  `Bearer <jwt_token>`
+
+### Responses
+- **200 OK**  
+  Returns the authenticated user's profile.
+  -`user` (object):
+    -`fullname` (object):
+        -`firstname` (string):Minimum length of 3 characters.
+        -`lastname` (string):Minimum length of 3 characters.
+    -`email` (string):Must be a valid email address.
+    -`password` (string): Minimum length of 6 characters.
+    
+- **401 Unauthorized**  
+  If the token is missing, invalid, or blacklisted.
+  ```json
+  {
+    "message": "Unauthorized"
   }
-}
+  ```
+  or
+  ```json
+  {
+    "message": "Unauthorized user"
+  }
+  ```
 
-**400 Bad Request**
-`Returned when the request data fails validation (e.g., invalid email format or password too short).`
-{
-  "errors": [
-    // Array of error objects detailing the validation issues
-  ]
-}
+---
 
-**401 Unauthorized**
-`Returned when authentication fails due to invalid email or password.`
-{
-  "message": "Invalid email or password"
-}
+## `/users/logout` Endpoint
+
+---
+
+### HTTP Method  
+`GET`
+
+### Endpoint  
+`/users/logout`
+
+### Description  
+Logs out the authenticated user by clearing the JWT token cookie and adding the token to a blacklist to prevent future use.
+
+### Request Headers
+- **Authorization:**  
+  `Bearer <jwt_token>`
+
+### Responses
+- **200 OK**  
+  Successfully logs out the user.
+  ```json
+  {
+    "message": "Logged Out "
+  }
+  ```
+- **401 Unauthorized**  
+  If the token is missing or invalid.
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
+  or
+  ```json
+  {
+    "message": "blacklisted token"
+  }
+  ```
 
 
 
 
 
- 
+
