@@ -16,7 +16,7 @@ module.exports.registerCaptain = async (req,res,next) => {
 
     const isCaptainAlreadyExist = await captainModel.findOne({email});
 
-    if( isCaptainAlreadyExist){
+    if(isCaptainAlreadyExist){
         return res.status(400).json({message:'captain already exists'});
     }
 
@@ -49,6 +49,7 @@ module.exports.loginCaptain = async (req,res,next) => {
     const {email,password} = req.body;
 
     const captain = await captainModel.findOne({email}).select('+password');
+    
 
     if(!captain){
         return res.status(401).json({message: 'Invalid email or password'});
