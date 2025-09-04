@@ -39,12 +39,13 @@ const captainSchema = new mongoose.Schema({
         color: {
             type: String,
             required: true,
-            minlenght: [3,'color must be 3 characters long'],
+            minlength: [3,'color must be 3 characters long'],
         },
         plate: {
             type: String, 
             required: true,
-            minlenght: [3,'plate must be 3 characters long'],
+            unique: true,
+            minlength: [3,'plate must be 3 characters long'],
         },
         capacity: {
             type: Number,

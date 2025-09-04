@@ -230,7 +230,132 @@ Registers a new captain. The endpoint validates the incoming request data and re
     - `color` (string): Vehicle color (min 3 characters).  
     - `capacity` (number): Vehicle capacity.  
     - `vehicleType` (string): Car, motorcycle, auto.  
-    - `plate` (string): Vehicle number plate.  
+    - `plate` (string): Vehicle number plate.
+
+---
+
+
+### `/captains/login` Endpoint
+
+**HTTP Method:** `POST`  
+**Endpoint:** `/captains/login`
+
+**Description:**  
+Authenticates an existing captain. On successful authentication, returns a JWT token and the captain details.
+
+**Request Body (JSON):**
+- **email** (string, required): Must be a valid email address.
+- **password** (string, required): Minimum length of 6 characters.
+
+**Example Request:**
+```json
+{
+  "email": "alice.smith@example.com",
+  "password": "strongpassword123"
+}
+```
+
+**Responses:**
+- **200 OK**  
+  Successful login returns a JWT token and the captain object.
+  ```json
+  {
+    "token": "jwt_token",
+    "captain": {
+      // captain details (excluding sensitive data like password)
+    }
+  }
+  ```
+- **400 Bad Request**  
+  Returned when validation errors occur.
+  ```json
+  {
+    "errors": [
+      // Array of validation error details
+    ]
+  }
+  ```
+- **401 Unauthorized**  
+  Returned when the email or password is invalid.
+  ```json
+  {
+    "message": "Invalid email or password"
+  }
+  ```
+
+---
+
+### `/captains/profile` Endpoint
+
+**HTTP Method:** `GET`  
+**Endpoint:** `/captains/profile`
+
+**Description:**  
+Retrieves the profile of the authenticated captain. This endpoint is protected and requires a valid JWT token provided via cookies or the `Authorization` header.
+
+**Request Headers:**
+- **Authorization:** `Bearer <jwt_token>`
+
+**Responses:**
+- **200 OK**  
+  Returns the authenticated captain's profile.
+  ```json
+  {
+    "captain": {
+      // captain details
+    }
+  }
+  ```
+- **401 Unauthorized**  
+  If the token is missing, invalid, or blacklisted.
+  ```json
+  {
+    "message": "Unauthorized token"
+  }
+  ```
+  or
+  ```json
+  {
+    "message": "Unauthorized captain"
+  }
+  ```
+
+---
+
+### `/captains/logout` Endpoint
+
+**HTTP Method:** `GET`  
+**Endpoint:** `/captains/logout`
+
+**Description:**  
+Logs out the authenticated captain by clearing the JWT token cookie and blacklisting the token to prevent future use.
+
+**Request Headers:**
+- **Authorization:** `Bearer <jwt_token>`
+
+**Responses:**
+- **200 OK**  
+  Successfully logs out the captain.
+  ```json
+  {
+    "message": "logged out successfully"
+  }
+  ```
+- **401 Unauthorized**  
+  If the token is missing or invalid.
+  ```json
+  {
+    "message": "Unauthorized token"
+  }
+  ```
+  or
+  ```json
+  {
+    "message": "blacklisted token"
+  }
+  ```
+
+  
  
  
 
