@@ -223,17 +223,18 @@ Registers a new captain. The endpoint validates the incoming request data and re
   Must be one of the following values: `car`, `motorcycle`, or `auto`.
 
 ### Example Request: 
--`captain` (object): 
-  \-`fullname` (object): 
-    \-`firstname`: (string): User's first name(min 3 characters).  
-    \-`lastname` (string): User's last name(min 3 characters).  
-\-`email` (string): User's email(must be a valid email).  
-\-`password` (string): User's password(min 6 characters).  
-\-`vehicle` (object): 
-  \-`color` (string): vehicle color (min 3 length). 
-  \-`capacity` (number): vehicle capacity. 
-  \-`vehicleType` (string): car, motorcycle, auto
-  \-`plate` (string): vehicle number plate. 
+\-`captain` (object):  
+  \-`fullname` (object):  
+    \-`firstname` (string): User's first name (min 3 characters).  
+    \-`lastname` (string): User's last name (min 3 characters).  
+\-`email` (string): User's email (must be a valid email).  
+\-`password` (string): User's password (min 6 characters).  
+\-`vehicle` (object):  
+  \-`color` (string): Vehicle color (min 3 characters).  
+  \-`capacity` (number): Vehicle capacity.  
+  \-`vehicleType` (string): Car, motorcycle, auto.  
+  \-`plate` (string): Vehicle number plate.  
+
 
 
 
