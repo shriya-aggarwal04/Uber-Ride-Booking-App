@@ -36,13 +36,14 @@ Registers a new user. The endpoint validates the incoming request data and retur
 ```
 
 ### Example Response
-- **user** (object):
-  - **fullname** (object):
-    \- **firstname** (string): Minimum length of 3 characters.  
-    \- **lastname** (string): Minimum length of 3 characters.  
-- **email** (string): Must be a valid email address.  
-- **password** (string): Minimum length of 6 characters.  
-- **jwt token** (string): token
+- `captain` (object):  
+  - `fullname` (object):  
+    - `firstname` (string): User's first name (min 3 characters).  
+    - `lastname` (string): User's last name (min 3 characters).  
+  - `email` (string): User's email (must be a valid email).  
+  - `password` (string): User's password (min 6 characters).  
+  - `Token` (string): jwt token
+
 
 ---
 
@@ -62,10 +63,10 @@ Registers a new user. The endpoint validates the incoming request data and retur
 Authenticates an existing user. On successful authentication, returns a JWT token and the user details.
 
 ### Request Body (JSON)
-- **email** (string, required):  
-  Must be a valid email address.
-- **password** (string, required):  
-  Minimum length of 6 characters.
+- `user` (object):  
+  - `email` (string, required): Must be a valid email address.  
+  - `password` (string, required): Minimum length of 6 characters.  
+
 
 ### Example Request:
 ```json
@@ -124,12 +125,13 @@ Retrieves the profile of the authenticated user. This endpoint is protected and 
 
 ### Responses
 - **200 OK**  
-  Returns the authenticated user's profile.
-  - **user** (object):
-  - **fullname** (object):
-    \- **firstname** (string): Minimum length of 3 characters.  
-    \- **lastname** (string): Minimum length of 3 characters.  
-- **email** (string): Must be a valid email address.  
+    Returns the authenticated user's profile.  
+  - `user` (object):  
+  - `fullname` (object):  
+    - `firstname` (string): Minimum length of 3 characters.  
+    - `lastname` (string): Minimum length of 3 characters.  
+  - `email` (string): Must be a valid email address.  
+ 
 
 .  
 
@@ -205,35 +207,31 @@ Logs out the authenticated user by clearing the JWT token cookie and adding the 
 Registers a new captain. The endpoint validates the incoming request data and returns a JWT token along with the created captain information upon successful registration.
 
 ### Request Body (JSON)
-- **fullname.firstname** (string, required):  
-  Minimum length of 3 characters.
-- **fullname.lastname** (string, optional):  
-  Minimum length of 3 characters if provided.
-- **email** (string, required):  
-  Must be a valid email address.
-- **password** (string, required):  
-  Minimum length of 6 characters.
-- **vehicle.color** (string, required):  
-  Minimum length of 3 characters.
-- **vehicle.plate** (string, required):  
-  Minimum length of 3 characters.
-- **vehicle.capacity** (number, required):  
-  Must be an integer with a minimum value of 1.
-- **vehicle.vehicleType** (string, required):  
-  Must be one of the following values: `car`, `motorcycle`, or `auto`.
+- `fullname` (object):  
+  - `firstname` (string, required): Minimum length of 3 characters.  
+  - `lastname` (string, optional): Minimum length of 3 characters if provided.  
+- `email` (string, required): Must be a valid email address.  
+- `password` (string, required): Minimum length of 6 characters.  
+- `vehicle` (object):  
+  - `color` (string, required): Minimum length of 3 characters.  
+  - `plate` (string, required): Minimum length of 3 characters.  
+  - `capacity` (number, required): Must be an integer with a minimum value of 1.  
+  - `vehicleType` (string, required): Must be one of the following values: `car`, `motorcycle`, or `auto`.  
+
 
 ### Example Response: 
-\-`captain` (object):  
-  \-`fullname` (object):  
-    \-`firstname` (string): User's first name (min 3 characters).  
-    \-`lastname` (string): User's last name (min 3 characters).  
-  \-`email` (string): User's email (must be a valid email).  
-  \-`password` (string): User's password (min 6 characters).  
-  \-`vehicle` (object):  
-    \-`color` (string): Vehicle color (min 3 characters).  
-    \-`capacity` (number): Vehicle capacity.  
-    \-`vehicleType` (string): Car, motorcycle, auto.  
-    \-`plate` (string): Vehicle number plate.  
+- `captain` (object):  
+  - `fullname` (object):  
+    - `firstname` (string): User's first name (min 3 characters).  
+    - `lastname` (string): User's last name (min 3 characters).  
+  - `email` (string): User's email (must be a valid email).  
+  - `password` (string): User's password (min 6 characters).  
+  - `vehicle` (object):  
+    - `color` (string): Vehicle color (min 3 characters).  
+    - `capacity` (number): Vehicle capacity.  
+    - `vehicleType` (string): Car, motorcycle, auto.  
+    - `plate` (string): Vehicle number plate.  
+ 
  
 
 
