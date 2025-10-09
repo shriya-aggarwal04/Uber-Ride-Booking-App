@@ -4,7 +4,7 @@ import { useNavigate} from 'react-router-dom'
 
 
 const UserLogout = () => {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const token=localStorage.getItem('token')
    console.log(token);
     axios.get(`${import.meta.env.VITE_BASE_URL}/users/logout`,{

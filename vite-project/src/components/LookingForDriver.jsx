@@ -3,14 +3,25 @@ import React from 'react'
 const LookingForDriver = (props) => {
   return (
     <div>
-        <h5 className='p-1 text-center w-[93%] absolute top-0 ' onClick={()=>{
+      {/* down arrow */}
+        <h5 
+        className='p-1 text-center w-[93%] absolute top-0 ' 
+        onClick={()=>{
         props.setVehicleFound(false)
-      }}><i className=" text-3xl text-gray-400 ri-arrow-down-wide-fill"></i></h5>
+        }}>
+        <i className=" text-3xl text-gray-400 ri-arrow-down-wide-fill"></i>
+        </h5>
+
        <h3 className='text-2xl font-semibold mb-5'>Looking for a Driver</h3>
 
       <div className='flex gap-2 justify-bertween flex-col items-center'>
+
+      {/* vehicle image */}
        <img className='h-20' src="https://www.pngplay.com/wp-content/uploads/8/Uber-PNG-Photos.png" alt="" />
+
       <div className='w-full mt-5'>
+
+        {/* pickup */}
         <div className='flex  items-center gap-5 p-3 border-b-2'>
         <i className="text-lg ri-map-pin-user-fill"></i>
         <div >
@@ -18,6 +29,8 @@ const LookingForDriver = (props) => {
             <p className='text-sm -mt-1 text-gray-600'>{props.pickup}</p>
         </div>
         </div>
+
+        {/* destination */}
         <div className='flex  items-center gap-5 p-3 border-b-2'>
         <i className=" text-lg ri-map-pin-fill"></i>
         <div>
@@ -25,6 +38,8 @@ const LookingForDriver = (props) => {
             <p className='text-sm -mt-1 text-gray-600'>{props.destination}</p>
         </div>
         </div>
+
+        {/* fare */}
         <div className='flex  items-center gap-5 p-3 '>
         <i className=" text-lg ri-currency-line"></i>
         <div>

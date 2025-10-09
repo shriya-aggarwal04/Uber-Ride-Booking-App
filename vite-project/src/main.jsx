@@ -13,10 +13,7 @@ createRoot(document.getElementById('root')).render(
     <UserContext>
       <SocketProvider>
     <BrowserRouter>
-   
     <App />
-    
-    
     </BrowserRouter>
     </SocketProvider>
     </ UserContext>

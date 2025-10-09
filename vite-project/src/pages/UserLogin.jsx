@@ -37,11 +37,11 @@ const userLogin = () => {
   return (
     <div className='p-7 h-screen flex flex-col justify-between'>
       <div>
-        <img className='w-16 mb-10 ' src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="logo" />
+        <img className='w-16 mb-10 'src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="logo" />
         <form onSubmit={(e)=>{
           submitHandler(e)
         }} >
-        <h3 className='text-lg font-medium mb-2'>  Enter your E-mail </h3>
+        <h3 className='text-lg font-medium mb-2'>Enter your E-mail</h3>
 
         <input required
         value={email}

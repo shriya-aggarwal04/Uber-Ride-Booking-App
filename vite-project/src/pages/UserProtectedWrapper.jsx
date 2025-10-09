@@ -7,10 +7,10 @@ import axios from 'axios'
 const UserProtectedWrapper = ({
     children 
 }) => {
-const token = localStorage.getItem('token') //token value-> null
-const navigate = useNavigate()
-const { user, setUser } = useContext(UserDataContext)
-const [ isLoading, setIsLoading ] = useState(true)
+        const token = localStorage.getItem('token') //token value-> null
+        const navigate = useNavigate()
+        const { user, setUser } = useContext(UserDataContext)
+        const [ isLoading, setIsLoading ] = useState(true)
 
    useEffect(()=>{
     if(!token){

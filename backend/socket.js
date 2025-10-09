@@ -15,7 +15,6 @@ function initializeSocket(server) {
     io.on('connection', (socket) => {
         console.log(`Client connected: ${socket.id}`);
 
-
         socket.on('join', async (data) => {
             const { userId, userType } = data;
 
@@ -28,22 +27,28 @@ function initializeSocket(server) {
             }
         });
 
-        
-
-
         socket.on('update-location-captain', async (data) => {
             const { userId, location } = data;
 
-            if (!location || !location.ltd || !location.lng) {
+            if (!location || !location.lat || !location.lng) {
                 return socket.emit('error', { message: 'Invalid location data' });
             }
 
-            await captainModel.findByIdAndUpdate(userId, {
+            const result = await captainModel.findByIdAndUpdate(userId, 
+                {
                 location: {
-                    ltd: location.ltd,
+                    lat: location.lat,
                     lng: location.lng
-                }
+                    // lat: 31.6304,
+                    // lng: 74.8765
+                },
+                
             });
+
+            // console.log(`Updated location for captain ${userId}:`, location);
+            if(!result) {
+                return socket.emit('error', { message: 'Captain not found' });
+            }
         });
 
         socket.on('disconnect', () => {
@@ -54,7 +59,7 @@ function initializeSocket(server) {
 
 const sendMessageToSocketId = (socketId, messageObject) => {
 
-console.log(messageObject);
+console.log(`sending message to  ${socketId}:`, messageObject);
 
     if (io) {
         io.to(socketId).emit(messageObject.event, messageObject.data);

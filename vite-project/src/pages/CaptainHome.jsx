@@ -10,6 +10,7 @@ import { useEffect, useContext } from 'react'
 import { SocketContext } from '../context/SocketContext'
 import { CaptainDataContext } from '../context/CaptainContext'
 import axios from 'axios'
+import LiveTracking from '../components/LiveTracking'
 
 const CaptainHome = () => {
 
@@ -22,8 +23,10 @@ const CaptainHome = () => {
 
   const { socket } = useContext(SocketContext)
   const { captain } = useContext(CaptainDataContext)
+  
 
   useEffect(() => {
+    console.log(captain);
    socket.emit('join', {
     userId: captain._id,
     userType: 'captain'
@@ -32,19 +35,23 @@ const CaptainHome = () => {
     const updateLocation = () => {
       if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
-
           console.log({
             userId: captain._id,
             location: {
-              ltd: position.coords.latitude,
-             lng: position.coords.longitude
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+              // lat: 31.6340,
+              // lng: 74.8723
             }
           })
+          
           socket.emit('update-location-captain', {
             userId: captain._id,
             location: {
-              ltd: position.coords.latitude,
-             lng: position.coords.longitude
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+              // lat: 31.6340,
+              // lng: 74.8723
             }
            
           })
@@ -61,7 +68,6 @@ const CaptainHome = () => {
 
   socket.on('new-ride', (data) => {
     console.log(data)
-    
     setRide(data)
     setRidePopupPanel(true)
     
@@ -70,21 +76,20 @@ const CaptainHome = () => {
   async function confirmRide() {
 
     const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/confirm`, {
-
         rideId: ride._id,
-        captainId: captain._id,
-
-
-    }, {
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
+        captainId: captain._id   
+    }, 
+    
+    {   
+      headers: {
+            Authorization: `Bearer ${localStorage.getItem('captain-token')}`
         }
     })
 
     setRidePopupPanel(false)
     setConfirmRidePopupPanel(true)
+  }
 
-}
 
   useGSAP(function (){
     if(ridePopupPanel){
@@ -116,18 +121,22 @@ const CaptainHome = () => {
    <div className='h-screen'>
         <div className='fixed p-6 top-0 flex items-center justify-between w-screen'>
           <img className=' w-16 ' src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="" />
+
           <Link to={'/captain-login'} className=' h-10 w-10 bg-white flex items-center justify-center rounded-full'>
           <i className=" text-lg font-medium ri-logout-box-r-line"></i>
-        </Link>
+          </Link>
+
         </div>
+
         <div className='h-3/5' >
             {/* image for temp use */}
+            <LiveTracking />
         </div>
         <div className='h-2/5 p-6'>
          <CaptainDetails />
         </div>
 
-        <div ref={ridePopupPanelRef} className='fixed w-full z-10 bottom-0 translate-y-0 px-3 py-10 pt-12 bg-white'>
+        <div ref={ridePopupPanelRef} className='fixed w-full z-10 bottom-0 translate-y-full px-3 py-10 pt-12 bg-white'>
               <RidePopUp
               ride={ride}
               setRidePopupPanel={setRidePopupPanel}
@@ -137,7 +146,11 @@ const CaptainHome = () => {
         </div>
 
         <div ref={confirmRidePopupPanelRef} className='fixed w-full h-screen z-10 bottom-0 translate-y-0 px-3 py-10 pt-12 bg-white'>
-              <ConfirmRidePopUp setConfirmRidePopupPanel={setConfirmRidePopupPanel} setRidePopupPanel={setRidePopupPanel} />
+              <ConfirmRidePopUp 
+              ride={ride}
+              
+              setConfirmRidePopupPanel={setConfirmRidePopupPanel} 
+              setRidePopupPanel={setRidePopupPanel} />
         </div>
    </div>
     

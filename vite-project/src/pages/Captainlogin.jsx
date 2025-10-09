@@ -12,6 +12,7 @@ const Captainlogin = () => {
   
       const submitHandler = async (e) => {
          e.preventDefault();
+         
           const captain ={
           email: email,
           password: password
@@ -23,7 +24,7 @@ const Captainlogin = () => {
           const data = response.data
 
           setCaptain(data.captain)
-          localStorage.setItem('token',data.token)
+          localStorage.setItem('captain-token',data.token)
           navigate('/captain-home')
         }
          

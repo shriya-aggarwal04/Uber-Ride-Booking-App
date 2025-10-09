@@ -10,7 +10,7 @@ const { captain } = useContext(CaptainDataContext)
          <div className='flex items-center justify-between'>
             <div className='flex items-center justify-start gap-4 '>
               <img className='h-10 w-10 rounded-full object-cover' src="https://pbs.twimg.com/media/BduTxWnIUAAKT_5.jpg" alt="" />
-              <h4 className='text-lg font-medium capitalize'>{captain?.fullname.firstname + " " + captain.fullname.lastname}</h4>
+              <h4 className='text-lg font-medium capitalize'>{captain.fullname.firstname + " " + captain.fullname.lastname}</h4>
             </div>
             <div>
               <h4 className='text-xl font-semibold'>₹295.2</h4>

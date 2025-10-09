@@ -45,7 +45,7 @@ const CaptainSignup = () => {
          if(response.status === 201){
           const data = response.data
           setCaptain(data.captain)
-          localStorage.setItem('token',data.token)
+          localStorage.setItem('captain-token',data.token)
           navigate('/captain-home')
          }
       
@@ -191,7 +191,7 @@ const CaptainSignup = () => {
     </form>
   </div>
   <div>
-    <p className='text-[10px] leading-tight'>
+    <p className='text-[10px] leading-tight mb-3'>
       This site is protected by reCAPTCHA and the <span className='underline'>Google privacy Policy</span>
       and <span className='underline'>Terms of Service apply</span>.
     </p>
